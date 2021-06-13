@@ -109,9 +109,39 @@ and terminate it after a few (N) packets. Now, check counter in simple_switch_CL
 
 Remember that packet is counted only if `count()` method is called during its processing. 
 
-__TASK 1__: Create a counter `packetsDropped`, which will count amount of packets that were dropped during ingress processing.
+__TASK 1__: Create a counter `packetsDropped`, which will count amount of packets that were dropped during ingress processing. 
 
+__HINT__:If you stuck or want to verify your solution you can check `/solution` directory
 
+## 2) Direct counters
+### 2.1) What is direct counter
+It is useful to associate counters with the entries in match-action table. Using them you don't have to specify their size, and index of table entry when counting. 
+This functionality is provided by direct counters: 
+```p4
+control ... {
+    direct_counter(counter_type) counter_name;
 
+    // actions, tables, other counters, ...
+}
+```
+where * __counter_type__ is same as in default counter. 
+
+### 2.2) Using direct counter
+
+When specifying counter you must add counters attribute to a table from which you are using it: 
+```p4
+control ... {
+    direct_counter(counter_type) counter_name;
+
+    table monitor {
+     key = ...
+     actions = ... // here we can specify an action which will increment our counter, note that count() method for direct counters have no arguments.
+     counters = counter_name;
+    }
+}
+```
+They can be accessed in same way as normal counters (see 1.2)
+__TASK 2__: Create a direct counter `directCounter`, which will behave similary to `packetsSent` counter from 1). Then access all possible counters after running application.
+How many counters are defined and why?
 
 
