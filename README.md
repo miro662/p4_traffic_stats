@@ -124,7 +124,7 @@ control ... {
     // actions, tables, other counters, ...
 }
 ```
-where * __counter_type__ is same as in default counter. 
+where  `counter_type` is same as in default counter. 
 
 ### 2.2) Using direct counter
 
@@ -140,8 +140,8 @@ control ... {
     }
 }
 ```
-They can be accessed in same way as normal counters (see 1.2)
-__TASK 2__: Create a direct counter `directCounter`, which will behave similary to `packetsSent` counter from 1). Then access all possible counters after running application.
+They can be accessed in same way as normal counters (see `1.2`)
+
+__TASK 2__: Create a direct counter `directCounter`, which will behave similary to `packetsSent` counter from `1)`. 
+Then access all possible direct counters by their index after running application.
 How many counters are defined and why?
-
-
