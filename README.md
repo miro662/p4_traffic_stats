@@ -111,7 +111,7 @@ Remember that packet is counted only if `count()` method is called during its pr
 
 __TASK 1__: Create a counter `packetsDropped`, which will count amount of packets that were dropped during ingress processing. 
 
-__HINT__:If you stuck or want to verify your solution you can check `/solution` directory
+__HINT__: If you stuck or want to verify your solution you can check `/solution` directory
 
 ## 2) Direct counters
 ### 2.1) What is direct counter
@@ -145,3 +145,9 @@ They can be accessed in same way as normal counters (see `1.2`)
 __TASK 2__: Create a direct counter `directCounter`, which will behave similary to `packetsSent` counter from `1)`. 
 Then access all possible direct counters by their index after running application.
 How many counters are defined and why?
+
+
+## 3) Final task
+Monitor packet usage per protocol. Use protocol field from ipv4 packet. Simulate some traffic:
+* ICMP - via `ping`
+* TCP - via hosting simple server on one of computers (you can use `python -m http.server .`) and getting data from here (you can use `wget`)
