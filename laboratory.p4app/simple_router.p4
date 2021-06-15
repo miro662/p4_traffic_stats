@@ -31,8 +31,11 @@ control egress(inout headers hdr, inout metadata meta, inout standard_metadata_t
 }
 
 control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_t standard_metadata) {
+    counter(1, CounterType.packets) packetsSent; 
+    // TODO TASK 1, TASK 2: declare counters here
     action _drop() {
         mark_to_drop(standard_metadata);
+        // TODO TASK 1: this action is used when we are dropping packets 
     }
     action set_nhop(bit<32> nhop_ipv4, bit<9> port) {
         meta.ingress_metadata.nhop_ipv4 = nhop_ipv4;
@@ -41,6 +44,8 @@ control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_
     }
     action set_dmac(bit<48> dmac) {
         hdr.ethernet.dstAddr = dmac;
+        packetsSent.count(0);
+        // TODO TASK 2: this action is used when forwarding packets
     }
     table ipv4_lpm {
         actions = {
@@ -65,6 +70,7 @@ control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_
         }
         size = 512;
         default_action = NoAction();
+        // TODO TASK 2: set some table attribute 
     }
     apply {
         if (hdr.ipv4.isValid()) {

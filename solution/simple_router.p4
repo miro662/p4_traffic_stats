@@ -31,12 +31,12 @@ control egress(inout headers hdr, inout metadata meta, inout standard_metadata_t
 }
 
 control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_t standard_metadata) {
-    counter(1, CounterType.packets) packetsSent;
-    counter(1, CounterType.packets) packetsDropped;
-    direct_counter(CounterType.packets) directCounter;
+    counter(1, CounterType.packets) packetsSent; 
+    counter(1, CounterType.packets) packetsDropped; // declare counter of size 1, which will count packets dropped
+    direct_counter(CounterType.packets) directCounter; // declare direct counter, no size declared
     action _drop() {
         mark_to_drop(standard_metadata);
-        packetsDropped.count(0);
+        packetsDropped.count(0); // count packets dropped
     }
     action set_nhop(bit<32> nhop_ipv4, bit<9> port) {
         meta.ingress_metadata.nhop_ipv4 = nhop_ipv4;
@@ -46,7 +46,7 @@ control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_
     action set_dmac(bit<48> dmac) {
         hdr.ethernet.dstAddr = dmac;
         packetsSent.count(0);
-        directCounter.count();
+        directCounter.count(); // count packets sent, using direct counter - no index argument needed
     }
     table ipv4_lpm {
         actions = {
@@ -71,7 +71,7 @@ control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_
         }
         size = 512;
         default_action = NoAction();
-        counters = directCounter;
+        counters = directCounter; // set table's counters attribute if you are using direct counters  
     }
     apply {
         if (hdr.ipv4.isValid()) {
