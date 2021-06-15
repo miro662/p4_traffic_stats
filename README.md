@@ -4,6 +4,8 @@ Authors: Mirosław Błażej, Łukasz Kowalski
 ## 0) Prerequirements
 ### 0.1) Set-up
 
+This laboratory was tested on Ubuntu Linux 20.04 and macOS Big Sur.
+
 Make sure that [Docker](https://docs.docker.com/engine/install/) is installed on your system. Then, clone this repository (with submodules) and move into it:
 ```bash
 $ git clone --recursive https://github.com/miro662/p4_traffic_stats
@@ -151,3 +153,11 @@ How many counters are defined and why?
 Monitor packet usage per protocol. Use protocol field from ipv4 packet. Simulate some traffic:
 * ICMP - via `ping`
 * TCP - via hosting simple server on one of computers (you can use `python -m http.server .`) and getting data from here (you can use `wget`)
+
+
+## 4) Bibliography & useful links
+* https://p4.org - official P4 website
+* https://github.com/p4lang/tutorials - P4 tutorials
+* https://www.youtube.com/watch?v=U3Mn6o2j4zQ - great video introduction of P4
+* https://github.com/p4lang/p4app - P4App (linked to this repo as submodule; tutorial in `README.md`)
+* https://cornell-pl.github.io/cs6114/lecture07.html - great description of counters available in P4
